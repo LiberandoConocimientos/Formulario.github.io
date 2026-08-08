@@ -5,22 +5,31 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-      #webApp-container {
+      /* Estilos para el contenedor que centra el iframe */
+      .contenedor-centrado {
         width: 100%;
         height: 100vh;
-        border: none;
         margin: 0;
         padding: 0;
         display: flex;
-        justify-content: center;
+        justify-content: center; /* Centra horizontalmente */
+      }
+
+      /* Estilos para el iframe */
+      #webApp {
+        width: 100%;
+        height: 100vh;
+        border: none;
       }
     </style>
     <title>Formulario</title>
 </head>
 <body>
-    <iframe
-      id="webApp-container"
-      src="https://script.google.com/macros/s/AKfycbyPYl8OHgF-RIhXJkQS7BUv7KAqw9EYlXSG7e5Eh5csqXe353CN5-W-p9chC4372FBC/exec">
-    </iframe>
+    <div class="contenedor-centrado">
+        <iframe
+          id="webApp"
+          src="https://script.google.com/macros/s/AKfycbyPYl8OHgF-RIhXJkQS7BUv7KAqw9EYlXSG7e5Eh5csqXe353CN5-W-p9chC4372FBC/exec">
+        </iframe>
+    </div>
 </body>
 </html>
