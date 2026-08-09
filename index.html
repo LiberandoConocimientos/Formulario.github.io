@@ -145,11 +145,11 @@
             elementoTitulo.innerText = titulosPagina[paramId] || paramId;
             
             // Asigna el icono correspondiente o uno por defecto si no estuviera registrado
-            const iconoSeleccionado = iconosPagina[paramId] || "🌐";
+            const iconoSeleccionado = iconosPagina[paramId] || "🧩";
             elementoIcono.href = crearFaviconSvg(iconoSeleccionado);
         } else {
             elementoTitulo.innerText = "Ingenius Cloud";
-            elementoIcono.href = crearFaviconSvg("🌐");
+            elementoIcono.href = crearFaviconSvg("🧩");
             contenedor.innerHTML = `
                 <div class="error-container">
                     <div class="error-code">ERROR 404</div>
