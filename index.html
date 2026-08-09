@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-      /* Reseteo general y tipografía elegante */
+      /* Reseteo general */
       * {
         margin: 0;
         padding: 0;
@@ -14,7 +14,7 @@
 
       body {
         font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        background-color: #0f172a; /* Fondo oscuro elegante */
+        background-color: #050505; /* Fondo casi negro para contraste de neón */
         color: #f8fafc;
         display: flex;
         justify-content: center;
@@ -39,58 +39,56 @@
         border: none;
       }
 
-      /* Tarjeta de Error 404 vistosa y moderna */
-      .error-card {
-        background: #1e293b;
-        border: 1px solid #334155;
-        padding: 40px 50px;
-        border-radius: 16px;
+      /* Estilo de Error 404 con efecto Neón Rojo */
+      .error-container {
         text-align: center;
-        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
-        max-width: 480px;
-        width: 90%;
-        animation: fadeIn 0.5s ease-in-out;
+        position: relative;
+        padding: 20px;
       }
 
-      @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(-10px); }
-        to { opacity: 1; transform: translateY(0); }
+      /* Líneas horizontales de fondo estilo láser */
+      .error-container::before,
+      .error-container::after {
+        content: "";
+        position: absolute;
+        left: -50vw;
+        right: -50vw;
+        height: 3px;
+        background-color: #ff0033;
+        box-shadow: 0 0 10px #ff0033, 0 0 20px #ff0033, 0 0 40px #ff0033;
+        z-index: -1;
+      }
+
+      .error-container::before {
+        top: 30%;
+      }
+
+      .error-container::after {
+        bottom: 30%;
       }
 
       .error-code {
-        font-size: 80px;
+        font-size: 75px;
         font-weight: 800;
-        background: linear-gradient(135deg, #38bdf8, #818cf8);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        line-height: 1;
+        letter-spacing: 2px;
+        color: #ffffff;
+        text-transform: uppercase;
+        /* Efecto de resplandor de neón (glow) */
+        text-shadow: 
+          0 0 5px #fff, 
+          0 0 10px #fff, 
+          0 0 20px #ff0033, 
+          0 0 40px #ff0033, 
+          0 0 80px #ff0033;
         margin-bottom: 15px;
       }
 
-      .error-title {
-        font-size: 22px;
-        font-weight: 600;
-        color: #f1f5f9;
-        margin-bottom: 10px;
-      }
-
       .error-message {
-        font-size: 15px;
+        font-size: 16px;
         color: #94a3b8;
-        line-height: 1.5;
-        margin-bottom: 25px;
-      }
-
-      .error-badge {
-        display: inline-block;
-        background-color: #334155;
-        color: #38bdf8;
-        font-size: 12px;
-        font-weight: 500;
-        padding: 6px 12px;
-        border-radius: 20px;
-        letter-spacing: 0.5px;
+        letter-spacing: 1px;
         text-transform: uppercase;
+        margin-top: 10px;
       }
     </style>
     <!-- Título inicial por defecto -->
@@ -107,7 +105,7 @@
         const urlParams = new URLSearchParams(queryString);
         const paramId = urlParams.get('id');
 
-        // 2. Diccionario de enlaces permitidos
+        // 2. Diccionario de enlaces permitidos (con las llaves exactas originales)
         const enlacesIframes = {
             "now": "https://script.google.com/macros/s/AKfycbyPYl8OHgF-RIhXJkQS7BUv7KAqw9EYlXSG7e5Eh5csqXe353CN5-W-p9chC4372FBC/exec",
             "nur": "https://script.google.com/macros/s/AKfycbxZkUmp6Tl3SV9Zq1HJRpw43wyQVGUFpihrK9unu8z-RWODuqIiLwe0gRGMn29X-CKG/exec",
@@ -127,15 +125,13 @@
         // 4. Validación, renderizado dinámico y actualización del título de la pestaña
         if (paramId && enlacesIframes[paramId]) {
             contenedor.innerHTML = `<iframe id="webApp" src="${enlacesIframes[paramId]}"></iframe>`;
-            // Asigna el título específico o el ID por defecto si no estuviera en el diccionario
             elementoTitulo.innerText = titulosPagina[paramId] || paramId;
         } else {
             elementoTitulo.innerText = "Ingenius Cloud";
             contenedor.innerHTML = `
-                <div class="error-card">
-                    <div class="error-code">404</div>
-                    <div class="error-title">Acceso no válido o enlace incompleto</div>
-                    <p class="error-message">Lo sentimos, el parámetro proporcionado en la URL no es correcto o no existe un formulario asociado a él.</p>
+                <div class="error-container">
+                    <div class="error-code">ERROR 404</div>
+                    <div class="error-message">Acceso no válido o enlace incompleto</div>
                     <span class="error-badge">Ingenius Cloud • Soporte</span>
                 </div>
             `;
