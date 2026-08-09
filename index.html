@@ -93,7 +93,8 @@
         text-transform: uppercase;
       }
     </style>
-    <title>Cover.lnk</title>
+    <!-- Título inicial por defecto -->
+    <title id="pagina-titulo">Ingenius Cloud</title>
 </head>
 <body>
     <div class="contenedor" id="contenedor-principal">
@@ -113,14 +114,23 @@
             "Cv": "https://ingeniuscloud.github.io/cv.dev/"
         };
 
-        const contenedor = document.getElementById('contenedor-principal');
+        // 3. Diccionario de títulos personalizados según el ID
+        const titulosPagina = {
+            "Now": "Formulario Now Moving",
+            "Nur": "Consultorio Sonrisalud",
+            "Cv": "CV Jesús Aguilera Dev"
+        };
 
-        // 3. Validación y renderizado dinámico
+        const contenedor = document.getElementById('contenedor-principal');
+        const elementoTitulo = document.getElementById('pagina-titulo');
+
+        // 4. Validación, renderizado dinámico y actualización del título de la pestaña
         if (paramId && enlacesIframes[paramId]) {
-            // Si es válido, se muestra el iframe a pantalla completa sin márgenes
             contenedor.innerHTML = `<iframe id="webApp" src="${enlacesIframes[paramId]}"></iframe>`;
+            // Asigna el título específico o el ID por defecto si no estuviera en el diccionario
+            elementoTitulo.innerText = titulosPagina[paramId] || paramId;
         } else {
-            // Si el parámetro no existe o es erróneo, muestra la tarjeta 404 estilizada
+            elementoTitulo.innerText = "Ingenius Cloud";
             contenedor.innerHTML = `
                 <div class="error-card">
                     <div class="error-code">404</div>
@@ -133,4 +143,3 @@
     </script>
 </body>
 </html>
-            
