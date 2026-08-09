@@ -1,3 +1,3 @@
-# Formulario Now Moving
+# Enlace Cobertura o Máscara
 
-HTML para alojar Formularios hechos con Apps Script
+HTML para alojar WEBs hechos con Apps Script
