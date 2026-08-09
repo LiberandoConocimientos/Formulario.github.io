@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Favicon / Ícono de la pestaña con ID dinámico -->
+    <link id="pagina-icono" rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>">
+    
     <style>
       /* Reseteo general */
       * {
@@ -119,20 +123,37 @@
             "cvd": "CV Jesús Aguilera Dev"
         };
 
+        // 4. Diccionario de iconos personalizados según el ID
+        const iconosPagina = {
+            "now": "⏱️",
+            "nur": "🦷",
+            "cvd": "📋"
+        };
+
         const contenedor = document.getElementById('contenedor-principal');
         const elementoTitulo = document.getElementById('pagina-titulo');
+        const elementoIcono = document.getElementById('pagina-icono');
 
-        // 4. Validación, renderizado dinámico y actualización del título de la pestaña
+        // Función auxiliar para generar la URL del favicon con SVG y emoji
+        function crearFaviconSvg(emoji) {
+            return `data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>${emoji}</text></svg>`;
+        }
+
+        // 5. Validación, renderizado dinámico y actualización del título y favicon de la pestaña
         if (paramId && enlacesIframes[paramId]) {
             contenedor.innerHTML = `<iframe id="webApp" src="${enlacesIframes[paramId]}"></iframe>`;
             elementoTitulo.innerText = titulosPagina[paramId] || paramId;
+            
+            // Asigna el icono correspondiente o uno por defecto si no estuviera registrado
+            const iconoSeleccionado = iconosPagina[paramId] || "🌐";
+            elementoIcono.href = crearFaviconSvg(iconoSeleccionado);
         } else {
             elementoTitulo.innerText = "Ingenius Cloud";
+            elementoIcono.href = crearFaviconSvg("🌐");
             contenedor.innerHTML = `
                 <div class="error-container">
                     <div class="error-code">ERROR 404</div>
                     <div class="error-message">Acceso no válido o enlace incompleto</div>
-                    <span class="error-badge">Ingenius Cloud • Soporte</span>
                 </div>
             `;
         }
