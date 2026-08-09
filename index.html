@@ -5,10 +5,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-      /* Estilos para el contenedor */
-      .contenedor {
+      /* Reseteo general */
+      * {
         margin: 0;
         padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f8fafc;
+      }
+
+      /* Estilos para el contenedor */
+      .contenedor {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
 
       /* Estilos para el iframe */
@@ -17,39 +32,60 @@
         height: 100vh;
         border: none;
       }
+
+      /* Estilos para el mensaje de error 404 personalizado */
+      .error-404 {
+        text-align: center;
+        color: #334155;
+        padding: 20px;
+      }
+
+      .error-404 h1 {
+        font-size: 72px;
+        color: #0284c7;
+        margin-bottom: 10px;
+      }
+
+      .error-404 p {
+        font-size: 18px;
+        color: #64748b;
+      }
     </style>
     <title>Formulario Now Moving</title>
 </head>
 <body>
-    <div class="contenedor">
-        <iframe id="webApp" src=""> </iframe>
+    <div class="contenedor" id="contenedor-principal">
+        <!-- El contenido se cargará dinámicamente aquí mediante JavaScript -->
     </div>
 
     <script>
-        // 1. Capturamos los parámetros que vienen en la URL
+        // 1. Capturamos los parámetros de la URL
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
-        
-        // 2. Leemos el parámetro llamado 'id' (puedes cambiarlo por el nombre que prefieras)
         const paramId = urlParams.get('id');
 
-        // 3. Definimos los diferentes enlaces de los iframes según el número recibido
+        // 2. Definimos tu diccionario de enlaces permitidos según el parámetro
         const enlacesIframes = {
             "1": "https://script.google.com/macros/s/AKfycbyPYl8OHgF-RIhXJkQS7BUv7KAqw9EYlXSG7e5Eh5csqXe353CN5-W-p9chC4372FBC/exec",
-            "2": "https://script.google.com/macros/s/AKfycbxZkUmp6Tl3SV9Zq1HJRpw43wyQVGUFpihrK9unu8z-RWODuqIiLwe0gRGMn29X-CKG/exec,
-            "3": "https://miel-sevaliente.github.io/Miel/",
-            "4": "https://www.youtube.com/watch?v=zaznPoyfI6w"
+            "2": "https://script.google.com/macros/s/ENLACE_NUMERO_2/exec", // Reemplaza cuando lo necesites
+            "3": "https://script.google.com/macros/s/ENLACE_NUMERO_3/exec"  // Reemplaza cuando lo necesites
         };
 
-        // 4. Seleccionamos el iframe en el HTML
-        const iframeElement = document.getElementById('webApp');
+        // 3. Seleccionamos el contenedor principal
+        const contenedor = document.getElementById('contenedor-principal');
 
-        // 5. Asignamos el enlace correspondiente; si no existe el parámetro o el número no es válido, ponemos uno por defecto
+        // 4. Validamos si el parámetro existe y es válido en el diccionario
         if (paramId && enlacesIframes[paramId]) {
-            iframeElement.src = enlacesIframes[paramId];
+            // Si es correcto, creamos e insertamos el iframe
+            contenedor.innerHTML = `<iframe id="webApp" src="${enlacesIframes[paramId]}"></iframe>`;
         } else {
-            // Enlace por defecto si no envían parámetro o no coincide
-            iframeElement.src = "https://script.google.com/macros/s/AKfycbyPYl8OHgF-RIhXJkQS7BUv7KAqw9EYlXSG7e5Eh5csqXe353CN5-W-p9chC4372FBC/exec";
+            // Si no existe o no se pasa el parámetro, mostramos el mensaje 404
+            contenedor.innerHTML = `
+                <div class="error-404">
+                    <h1>404</h1>
+                    <p>Página no encontrada o enlace inválido.</p>
+                </div>
+            `;
         }
     </script>
 </body>
